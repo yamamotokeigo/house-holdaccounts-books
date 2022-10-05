@@ -31,6 +31,13 @@ public class HouseHoldAccountsService {
 		}
 		return list;
 	}
+	
+	//新規登録
+	public Account insert(Account account) {
+		repository.insert(account);
+		return account;
+	}
+	
 	public int getTotalPrice() {
 		return totalPrice;
 	}

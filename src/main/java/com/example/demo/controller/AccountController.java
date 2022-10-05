@@ -31,4 +31,10 @@ public class AccountController {
 		model.addAttribute("totalPrice", totalPrice);
 		return "account/HouseholdList";
 	}
+	
+	//新規登録
+	@RequestMapping("/insert")
+	public String insert(Account account) {
+		return "account/insert";
+	}
 }
