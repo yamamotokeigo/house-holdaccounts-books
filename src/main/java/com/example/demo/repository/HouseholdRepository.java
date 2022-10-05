@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -28,6 +29,14 @@ public class HouseholdRepository {
         List<Account> accountList 
 		= template.query(sql, param, ACCOUNT_ROW_MAPPER);
 		return accountList;
+    }
+    //新規登録
+    public void insert(Account account) {
+    	
+    	String sql = "INSERT INTO account(date, type, item, price)"
+    				+ " values(:date, :type, :item, :price)";
+    	SqlParameterSource param = new BeanPropertySqlParameterSource(account);
+    	template.update(sql, param);
     }
 
 }
