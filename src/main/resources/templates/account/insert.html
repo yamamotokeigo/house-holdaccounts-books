@@ -11,7 +11,7 @@
  <div th:replace="~{block/header::headerAccount}"></div>
     <h1>新規登録画面</h1>
 
-	 <form method="post" th:action="@{/account/insert}">
+	 <form method="post" th:action="@{/insertFinish}">
         日時：<input type="date" name="date" required><br>
         種別：
         <input type="radio" name="type" value="1" checked>食費
