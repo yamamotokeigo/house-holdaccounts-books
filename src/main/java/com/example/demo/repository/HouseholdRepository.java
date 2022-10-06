@@ -32,10 +32,9 @@ public class HouseholdRepository {
     }
     //新規登録
     public void insert(Account account) {
-    	
+    	SqlParameterSource param = new BeanPropertySqlParameterSource(account);
     	String sql = "INSERT INTO account(date, type, item, price)"
     				+ " values(:date, :type, :item, :price)";
-    	SqlParameterSource param = new BeanPropertySqlParameterSource(account);
     	template.update(sql, param);
     }
 
