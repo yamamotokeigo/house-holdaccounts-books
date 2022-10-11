@@ -38,6 +38,15 @@ public class HouseHoldAccountsService {
 		return account;
 	}
 	
+	//削除画面
+	public void delete(Integer id) {
+		repository.delete(id);
+	}
+	//削除確認画面
+	public Account deleteFindById(Integer id) {
+		return repository.findByAccountId(id);
+	}
+	
 	public int getTotalPrice() {
 		return totalPrice;
 	}
