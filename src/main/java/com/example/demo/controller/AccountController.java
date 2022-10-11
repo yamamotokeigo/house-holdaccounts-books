@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.domain.Account;
 import com.example.demo.service.HouseHoldAccountsService;
@@ -75,13 +77,13 @@ public class AccountController {
 	}
 	
 	// 年別集計画面へ遷移
-		@RequestMapping("/searchByYear")
+		@GetMapping("/searchByYear")
 		public String searchByYear() {
 
 			return "account/findByYear";
 		}
 	//年別集計
-	@RequestMapping("/findByYear")
+	@PostMapping("/findByYear")
 	public String findByYear(Model model , String year) {
 		List<Account> list2 = service.findByYear(year);
 		int totalPrice = service.getTotalPrice();
@@ -89,6 +91,24 @@ public class AccountController {
 		model.addAttribute("year" , year);
 		model.addAttribute("totalPrice" , totalPrice);
 		return "account/findByYear";
-		
+	}
+	
+	// 年別月別集計画面へ遷移
+	@GetMapping("/findByYearAndMonth")
+	public String searchByYearAndMonth() {
+
+		return "account/findByYearAndMonth";
+		}
+			
+	//年別月別集計
+	@PostMapping("/findByYearAndMonth")
+	public String findByYearAndMonth(Model model , String year , String month) {
+		List<Account> list3 = service.findByYearAndMonth(year, month);
+		int totalPrice = service.getTotalPrice();
+		model.addAttribute("list" , list3);
+		model.addAttribute("year" , year);
+		model.addAttribute("month" , month);
+		model.addAttribute("totalPrice" , totalPrice);
+		return "account/findByYearAndMonth";
 	}
 }
