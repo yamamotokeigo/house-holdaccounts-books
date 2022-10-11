@@ -37,5 +37,18 @@ public class HouseholdRepository {
     				+ " values(:date, :type, :item, :price)";
     	template.update(sql, param);
     }
+    //削除処理
+    public void delete(Integer id) {
+    	String sql = "DELETE from account WHERE id=:id";
+    	SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+    	template.update(sql, param);
+    }
+    //ID検索
+    public Account findByAccountId(Integer id) {
+    	String sql = "SELECT FROM account where id=:id";
+    	SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+    	Account account = template.queryForObject(sql, param, ACCOUNT_ROW_MAPPER);
+    	return account;
+    }
 
 }
