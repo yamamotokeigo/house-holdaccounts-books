@@ -61,4 +61,11 @@ public class HouseholdRepository {
     	List<Account> yearList = template.query(sql, param, ACCOUNT_ROW_MAPPER);
     	return yearList;
     }
+    //年別月別集計
+    public List<Account> findByYearAndMonth(String startDate , String endDate){
+    	String sql = "SELECT id, date, type, item, price FROM account where date between :startDate and :endDate order by date, id";
+    	SqlParameterSource param = new MapSqlParameterSource().addValue("startDate", startDate).addValue("endDate" , endDate);
+    	List<Account> yearMonthList = template.query(sql, param, ACCOUNT_ROW_MAPPER);
+    	return yearMonthList;
+    }
 }

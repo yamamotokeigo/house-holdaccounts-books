@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,23 @@ public class HouseHoldAccountsService {
 			totalPrice += account.getPrice();
 		}
 		return list;
+	}
+	//年別月別集計
+	public List<Account> findByYearAndMonth(String year , String month){
+		int searchYear = Integer.parseInt(year);
+		int searchMonth = Integer.parseInt(month);
+		String startDate = year + "-" + month + "-" + "01";
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, searchYear);
+        calendar.set(Calendar.MONTH, searchMonth - 1);
+        int result = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        String endDate = year + "-" + month + "-" + result;
+        List<Account> yearAndMonthList = repository.findByYearAndMonth(startDate, endDate);
+        totalPrice = 0;
+		for (Account account : yearAndMonthList) {
+			totalPrice += account.getPrice();
+		}
+		return yearAndMonthList;
 	}
 	
 	public int getTotalPrice() {
