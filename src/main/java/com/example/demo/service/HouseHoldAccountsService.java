@@ -47,6 +47,18 @@ public class HouseHoldAccountsService {
 		return repository.findByAccountId(id);
 	}
 	
+	//年別集計
+	public List<Account> findByYear(String year){
+		String startDate = year + "-01-01";
+		String endDate = year + "-12-31";
+		List<Account> list = repository.findByYear(startDate, endDate);
+		totalPrice = 0;
+		for (Account account : list) {
+			totalPrice += account.getPrice();
+		}
+		return list;
+	}
+	
 	public int getTotalPrice() {
 		return totalPrice;
 	}

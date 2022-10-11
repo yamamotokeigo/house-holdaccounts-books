@@ -20,6 +20,9 @@ public class HouseholdRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate template;
+    
+	
+
 
     // 全件検索処理
     public List<Account> findAll() {
@@ -45,10 +48,17 @@ public class HouseholdRepository {
     }
     //ID検索
     public Account findByAccountId(Integer id) {
-    	String sql = "SELECT FROM account where id=:id";
+    	String sql = "SELECT id, date, type, item, price FROM account where id=:id";
     	SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
     	Account account = template.queryForObject(sql, param, ACCOUNT_ROW_MAPPER);
     	return account;
     }
-
+    
+    //年別集計
+    public List<Account> findByYear(String startDate, String endDate){
+    	String sql = "SELECT id, date, type, item, price FROM account where date between :startDate and :endDate order by date, id";
+    	SqlParameterSource param = new MapSqlParameterSource().addValue("startDate", startDate).addValue("endDate" , endDate);
+    	List<Account> yearList = template.query(sql, param, ACCOUNT_ROW_MAPPER);
+    	return yearList;
+    }
 }

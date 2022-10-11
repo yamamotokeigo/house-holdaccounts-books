@@ -73,4 +73,22 @@ public class AccountController {
 		service.delete(id);
 		return "account/deleteComplete";
 	}
+	
+	// 年別集計画面へ遷移
+		@RequestMapping("/searchByYear")
+		public String searchByYear() {
+
+			return "account/findByYear";
+		}
+	//年別集計
+	@RequestMapping("/findByYear")
+	public String findByYear(Model model , String year) {
+		List<Account> list2 = service.findByYear(year);
+		int totalPrice = service.getTotalPrice();
+		model.addAttribute("list" , list2);
+		model.addAttribute("year" , year);
+		model.addAttribute("totalPrice" , totalPrice);
+		return "account/findByYear";
+		
+	}
 }
