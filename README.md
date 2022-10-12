@@ -1,6 +1,6 @@
 # house-holdaccounts-books
 
-  <details>
+   <details>
      <summary>シーケンス図</summary>
   
   ```mermaid
@@ -11,16 +11,15 @@
   participant Repository
   participant DB
  
-  User ->> Controller : findShoppingList /update
-  Controller ->> DB : ショッピングカート情報問い合わせ
-  DB ->> Controller    : ショッピングカート情報送信
-  Controller ->> Service : 宛先情報をフォームへセット
-  Service ->> Repository : 宛先情報を送る
-  Repository ->> DB : 注文情報と宛先情報を格納
-  Repository ->> DB : ショッピングカート情報削除
-  DB ->> Repository : 注文情報を取得
-  Repository ->> Service : 注文情報を送る
-  Service ->> Controller : 最新の注文情報を送る
+  User ->> Controller : insert
+  Controller ->> DB : 家計簿情報問い合わせ
+  DB ->> Controller    : 家計簿情報送信
+  Controller ->> Service : 登録情報をセット
+  Service ->> Repository : 登録情報を送る
+  Repository ->> DB : 登録情報を格納
+  DB ->> Repository : 登録情報を取得
+  Repository ->> Service : 登録情報を送る
+  Service ->> Controller : 最新の登録情報を送る
   Controller ->> User : HTTPレスポンス   
    ```
   </details>
