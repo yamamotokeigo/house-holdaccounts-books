@@ -1,6 +1,8 @@
 # house-holdaccounts-books
 
-<detail>
+  <details>
+     <summary>シーケンス図</summary>
+  
   ```mermaid
  sequenceDiagram
   actor User
@@ -21,4 +23,4 @@
   Service ->> Controller : 最新の注文情報を送る
   Controller ->> User : HTTPレスポンス   
    ```
-</detail>
+  </details>
