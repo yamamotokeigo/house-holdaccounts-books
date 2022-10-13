@@ -19,7 +19,7 @@
 * Thymeleaf
 
 ## 🌸機能一覧
-*家計簿新規登録
+* 家計簿新規登録
    <details>
      <summary>シーケンス図</summary>
   
@@ -44,7 +44,7 @@
    ```
   </details>
 
-*年別月別集計
+* 年別月別集計
   <details>
      <summary>シーケンス図</summary>
   
