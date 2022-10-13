@@ -4,6 +4,7 @@
 
 ## 🖋主な機能
 * 家計簿一覧表示機能
+* 家計簿新規登録機能
 * 家計簿更新機能
 * 家計簿削除機能
 * 年別、月別家計簿集計機能
@@ -17,7 +18,8 @@
 * SpringBoot(Spring MVC, Spring JDBC)
 * Thymeleaf
 
-・新規登録
+## 🌸機能一覧
+*家計簿新規登録
    <details>
      <summary>シーケンス図</summary>
   
@@ -42,7 +44,7 @@
    ```
   </details>
 
-・年別月別集計
+*年別月別集計
   <details>
      <summary>シーケンス図</summary>
   
