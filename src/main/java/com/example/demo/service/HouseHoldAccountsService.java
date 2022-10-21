@@ -32,13 +32,13 @@ public class HouseHoldAccountsService {
 		}
 		return list;
 	}
-	
+
 	//新規登録
 	public Account insert(Account account) {
 		repository.insert(account);
 		return account;
 	}
-	
+
 	//削除画面
 	public void delete(Integer id) {
 		repository.delete(id);
@@ -47,7 +47,15 @@ public class HouseHoldAccountsService {
 	public Account deleteFindById(Integer id) {
 		return repository.findByAccountId(id);
 	}
-	
+	//更新処理
+	public void update(Account account) {
+		repository.update(account);
+	}
+	//更新確認画面
+		public Account updateFindById(Integer id) {
+			return repository.findByAccountId(id);
+		}
+
 	//年別集計
 	public List<Account> findByYear(String year){
 		String startDate = year + "-01-01";
@@ -61,22 +69,27 @@ public class HouseHoldAccountsService {
 	}
 	//年別月別集計
 	public List<Account> findByYearAndMonth(String year , String month){
+		//検索する際に利用する変数を宣言
 		int searchYear = Integer.parseInt(year);
 		int searchMonth = Integer.parseInt(month);
 		String startDate = year + "-" + month + "-" + "01";
+		
+		//日付を設定するCalenderクラスオブジェクトを生成
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, searchYear);
-        calendar.set(Calendar.MONTH, searchMonth - 1);
-        int result = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        String endDate = year + "-" + month + "-" + result;
-        List<Account> yearAndMonthList = repository.findByYearAndMonth(startDate, endDate);
-        totalPrice = 0;
+		calendar.set(Calendar.MONTH, searchMonth - 1);
+		int result = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		String endDate = year + "-" + month + "-" + result;
+		
+		
+		List<Account> yearAndMonthList = repository.findByYearAndMonth(startDate, endDate);
+		totalPrice = 0;
 		for (Account account : yearAndMonthList) {
 			totalPrice += account.getPrice();
 		}
 		return yearAndMonthList;
 	}
-	
+
 	public int getTotalPrice() {
 		return totalPrice;
 	}

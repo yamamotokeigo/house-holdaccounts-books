@@ -14,58 +14,65 @@ import com.example.demo.domain.Account;
 
 @Repository
 public class HouseholdRepository {
-	
+
 	private static final RowMapper<Account> ACCOUNT_ROW_MAPPER
 	= new BeanPropertyRowMapper<>(Account.class);
 
-    @Autowired
-    private NamedParameterJdbcTemplate template;
-    
-	
+	@Autowired
+	private NamedParameterJdbcTemplate template;
 
 
-    // 全件検索処理
-    public List<Account> findAll() {
 
-        String sql = "SELECT id, date, type, item, price FROM account order by date, id";
-        SqlParameterSource param = new MapSqlParameterSource();
-        List<Account> accountList 
+
+	// 全件検索処理
+	public List<Account> findAll() {
+
+		String sql = "SELECT id, date, type, item, price FROM account order by date, id";
+		SqlParameterSource param = new MapSqlParameterSource();
+		List<Account> accountList 
 		= template.query(sql, param, ACCOUNT_ROW_MAPPER);
 		return accountList;
-    }
-    //新規登録
-    public void insert(Account account) {
-    	SqlParameterSource param = new BeanPropertySqlParameterSource(account);
-    	String sql = "INSERT INTO account(date, type, item, price)"
-    				+ " values(:date, :type, :item, :price)";
-    	template.update(sql, param);
-    }
-    //削除処理
-    public void delete(Integer id) {
-    	String sql = "DELETE from account WHERE id=:id";
-    	SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-    	template.update(sql, param);
-    }
-    //ID検索
-    public Account findByAccountId(Integer id) {
-    	String sql = "SELECT id, date, type, item, price FROM account where id=:id";
-    	SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-    	Account account = template.queryForObject(sql, param, ACCOUNT_ROW_MAPPER);
-    	return account;
-    }
-    
-    //年別集計
-    public List<Account> findByYear(String startDate, String endDate){
-    	String sql = "SELECT id, date, type, item, price FROM account where date between :startDate and :endDate order by date, id";
-    	SqlParameterSource param = new MapSqlParameterSource().addValue("startDate", startDate).addValue("endDate" , endDate);
-    	List<Account> yearList = template.query(sql, param, ACCOUNT_ROW_MAPPER);
-    	return yearList;
-    }
-    //年別月別集計
-    public List<Account> findByYearAndMonth(String startDate , String endDate){
-    	String sql = "SELECT id, date, type, item, price FROM account where date between :startDate and :endDate order by date, id";
-    	SqlParameterSource param = new MapSqlParameterSource().addValue("startDate", startDate).addValue("endDate" , endDate);
-    	List<Account> yearMonthList = template.query(sql, param, ACCOUNT_ROW_MAPPER);
-    	return yearMonthList;
-    }
+	}
+	//新規登録
+	public void insert(Account account) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(account);
+		String sql = "INSERT INTO account(date, type, item, price)"
+				+ " values(:date, :type, :item, :price)";
+		template.update(sql, param);
+	}
+	//削除処理
+	public void delete(Integer id) {
+		String sql = "DELETE from account WHERE id=:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		template.update(sql, param);
+	}
+	//ID検索
+	public Account findByAccountId(Integer id) {
+		String sql = "SELECT id, date, type, item, price FROM account where id=:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Account account = template.queryForObject(sql, param, ACCOUNT_ROW_MAPPER);
+		return account;
+	}
+	
+	//更新処理
+	public void update(Account account) {
+		String sql = "UPDATE account set date=:date, type=:type, item=:item, price=:price where id=:id";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(account);
+		template.update(sql, param);
+	}
+
+	//年別集計
+	public List<Account> findByYear(String startDate, String endDate){
+		String sql = "SELECT id, date, type, item, price FROM account where date between :startDate and :endDate order by date, id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("startDate", startDate).addValue("endDate" , endDate);
+		List<Account> yearList = template.query(sql, param, ACCOUNT_ROW_MAPPER);
+		return yearList;
+	}
+	//年別月別集計
+	public List<Account> findByYearAndMonth(String startDate , String endDate){
+		String sql = "SELECT id, date, type, item, price FROM account where date between :startDate and :endDate order by date, id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("startDate", startDate).addValue("endDate" , endDate);
+		List<Account> yearMonthList = template.query(sql, param, ACCOUNT_ROW_MAPPER);
+		return yearMonthList;
+	}
 }
